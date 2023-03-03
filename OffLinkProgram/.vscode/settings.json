@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "rtdef.h": "c",
+        "rtthread.h": "c"
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "cStandard": "c99",
+            "cppStandard": "c++17",
+            "includePath": [
+                "${workspaceFolder}/**",
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                ],
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ],
+    "version": 4
+}
