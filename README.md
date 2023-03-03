@@ -1,5 +1,6 @@
 # OffLineProgrammer
 * 基于沁恒CH32V208的离线烧录器
+* 只支持ARM芯片(带有SWD接口的芯片)
 
 ## 完成部分
 * 自带Keil生成的烧录算法文件(.FLM文件)解析
