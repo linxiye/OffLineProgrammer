@@ -75,7 +75,7 @@ int UsbApp_Init(void)
     RT_LOGI(TAG,"USBD UDisk Demo");
     RT_LOGI(TAG,"Storage Medium: SPI FLASH");
 
-    Dev.mq = rt_mq_create("usb",sizeof(struct usb_msg),2,RT_IPC_FLAG_FIFO);
+    Dev.mq = rt_mq_create("usb",sizeof(struct usb_msg),10,RT_IPC_FLAG_FIFO);
 
     rt_thread_init(&Dev.thread,
                     "USB",
@@ -83,8 +83,8 @@ int UsbApp_Init(void)
                     NULL,
                     Dev.stack,
                     sizeof(Dev.stack),
-                    11,
-                    10);
+                    15,
+                    20);
     rt_thread_startup(&Dev.thread);
      /* USBD init */
     USBD_Callback_Init(&fun);
