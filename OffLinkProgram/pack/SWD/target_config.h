@@ -25,7 +25,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "flashalgo.h"
+#include "flash_blob.h"
 #include "error.h"
 
 //! This can vary from target to target and should be in the structure or flash blob

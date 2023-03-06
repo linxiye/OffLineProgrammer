@@ -24,7 +24,7 @@
 #ifndef SWDHOST_CM_H
 #define SWDHOST_CM_H
 
-#include "flashalgo.h"
+#include "flash_blob.h"
 #ifdef TARGET_MCU_CORTEX_A
 #include "debug_ca.h"
 #else

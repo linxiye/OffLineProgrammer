@@ -204,7 +204,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-
 // DAP Data structure
 typedef struct {
   uint8_t     debug_port;                       // Debug Port
@@ -299,9 +298,9 @@ __STATIC_FORCEINLINE void PIN_DELAY_SLOW (uint32_t delay) {
   while (--count);
 }
 #else
-static __inline void PIN_DELAY_SLOW (uint32_t delay) {
-  uint32_t count = delay;
-  while (--count);
+#include "rthw.h"
+static inline void PIN_DELAY_SLOW (uint32_t delay) {
+    rt_hw_us_delay(delay);
 }
 #endif
 
@@ -309,7 +308,7 @@ static __inline void PIN_DELAY_SLOW (uint32_t delay) {
 #ifndef DELAY_FAST_CYCLES
 #define DELAY_FAST_CYCLES       0U      // Number of cycles: 0..3
 #endif
-static __inline void PIN_DELAY_FAST (void) {
+static inline void PIN_DELAY_FAST (void) {
 #if (DELAY_FAST_CYCLES >= 1U)
   __NOP();
 #endif

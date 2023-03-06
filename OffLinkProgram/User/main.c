@@ -20,8 +20,16 @@
 
 int main(void)
 {
+
     while(1)
     {
+//        rt_pin_write(53, 1);
+//        rt_pin_write(54, 1);
+////        rt_pin_write(26, 1);
+//        rt_thread_mdelay(1000);
+//        rt_pin_write(54, 0);
+//        rt_pin_write(53, 0);
+////        rt_pin_write(26, 0);
         rt_thread_mdelay(1000);
     }
 }

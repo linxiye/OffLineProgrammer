@@ -47,7 +47,7 @@ void _25qxx_spi_rw(uint8_t *data,uint32_t len)
     rt_device_read(device,0x00,data,len);
 }
 
-struct _25qxx_function fun = {
+static struct _25qxx_function fun = {
     ._25qxx_spi_cs = _25qxx_spi_cs,
     ._25qxx_spi_rw = _25qxx_spi_rw,
 };

@@ -82,3 +82,36 @@ void SysTick_Handler(void)
     FREE_INT_SP();
 
 }
+
+void rt_hw_us_delay(rt_uint32_t us)
+{
+    rt_uint64_t ticks;
+    rt_uint64_t told, tnow, tcnt = 0;
+    rt_uint64_t reload = SysTick->CMP;
+
+    /* 获得延时经过的 tick 数 */
+    ticks = us * reload / (1000000 / RT_TICK_PER_SECOND);
+    /* 获得当前时间 */
+    told = SysTick->CNT;
+    while (1)
+    {
+        /* 循环获得当前时间，直到达到指定的时间后退出循环 */
+        tnow = SysTick->CNT;
+        if (tnow != told)
+        {
+            if (tnow < told)
+            {
+                tcnt += told - tnow;
+            }
+            else
+            {
+                tcnt += reload - tnow + told;
+            }
+            told = tnow;
+            if (tcnt >= ticks)
+            {
+                break;
+            }
+        }
+    }
+}
