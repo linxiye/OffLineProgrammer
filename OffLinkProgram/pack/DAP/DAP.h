@@ -300,7 +300,7 @@ __STATIC_FORCEINLINE void PIN_DELAY_SLOW (uint32_t delay) {
 #else
 #include "rthw.h"
 static inline void PIN_DELAY_SLOW (uint32_t delay) {
-    rt_hw_us_delay(delay);
+    rt_hw_us_delay(delay * 2);
 }
 #endif
 

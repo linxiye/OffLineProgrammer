@@ -2,14 +2,13 @@
 #include "target_config.h"
 #include "stdio.h"
 
-extern const program_target_t flash_algo;
+extern program_target_t flash_algo;
 
 
 error_t target_flash_init(uint32_t flash_start)
 {
     if(0 == swd_set_target_state_hw(RESET_PROGRAM))
         {
-					
             return ERROR_RESET;
         }
 

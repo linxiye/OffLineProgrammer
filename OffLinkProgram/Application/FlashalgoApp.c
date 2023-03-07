@@ -11,40 +11,42 @@ const static char *TAG = "Flashalgo";
 
 char FILENAME[] = "0:/STM32F10x_512.FLM";
 char BINNAME[] = "0:/LED.bin";
+program_target_t flash_algo;
 int flashalgo_test(void)
 {
-//    program_target_t target;
-//    chip_information info;
-//    FLM_Prase(FILENAME, &target, &info);
+
+    chip_information info;
+    FLM_Prase(FILENAME, &flash_algo, &info);
 //    rt_kprintf("name:%s \r\n",info.name);
 //    rt_kprintf("flash_start:%#x \r\n",info.flash_start);
 //    rt_kprintf("flash_size:%#x \r\n",info.flash_size);
 //    rt_kprintf("page_size:%#x \r\n",info.page_size);
 //    rt_kprintf("sector_size:%#x \r\n",info.sector_size);
-//    rt_kprintf("algo_size:%d \r\n",target.algo_size);
-//    for(int i = 0;i<target.algo_size/sizeof(uint32_t);i++)
+//    rt_kprintf("algo_size:%d \r\n",flash_algo.algo_size);
+//    for(int i = 0;i<flash_algo.algo_size/sizeof(uint32_t);i++)
 //    {
 //        if(i%8 == 0)
 //            rt_kprintf("\r\n");
-//        rt_kprintf("0X%08X ",target.algo_blob[i]);
+//        rt_kprintf("0X%08X ",flash_algo.algo_blob[i]);
 //    }
 //
 //    rt_kprintf("\r\n");
-//    rt_kprintf("init:0X%08X\r\n",target.init);
-//    rt_kprintf("uninit:0X%08X\r\n",target.uninit);
-//    rt_kprintf("erase_chip:0X%08X\r\n",target.erase_chip);
-//    rt_kprintf("erase_sector:0X%08X\r\n",target.erase_sector);
-//    rt_kprintf("program_page:0X%08X\r\n",target.program_page);
-//    rt_kprintf("program_buffer_size:0X%08X\r\n",target.program_buffer_size);
-//    free(target.algo_blob);
+//    rt_kprintf("init:0X%08X\r\n",flash_algo.init);
+//    rt_kprintf("uninit:0X%08X\r\n",flash_algo.uninit);
+//    rt_kprintf("erase_chip:0X%08X\r\n",flash_algo.erase_chip);
+//    rt_kprintf("erase_sector:0X%08X\r\n",flash_algo.erase_sector);
+//    rt_kprintf("program_page:0X%08X\r\n",flash_algo.program_page);
+//    rt_kprintf("program_buffer_size:0X%08X\r\n",flash_algo.program_buffer_size);
+//    free(flash_algo.algo_blob);
 }
-#define DLSize      2048
+#define DLSize      1024
 FIL USERFile;
-uint8_t bin_buff[DLSize];
+
 uint8_t FLASH_SWD(char *File){
     uint8_t readflag = 0;
     uint32_t addr;
-    uint16_t bytesread;
+    int bytesread;
+    uint8_t *bin_buff = rt_malloc(DLSize);
     FRESULT Res = f_open(&USERFile, File,FA_READ);
     if (Res == FR_OK)
     {
@@ -53,14 +55,14 @@ uint8_t FLASH_SWD(char *File){
 
         if (swd_init_debug())
         {
-            rt_kprintf("swd_init_debug\r\n");
             if (target_flash_init(0x8000000) == ERROR_SUCCESS)
             {
-                rt_kprintf("target_flash_init\r\n");
+
                 if (target_flash_erase_chip() == ERROR_SUCCESS)
                 {
+                    RT_LOGI(TAG,"target_flash_erase_chip");
                     while(readflag){
-                         f_read(&USERFile, bin_buff, DLSize, (void *)&bytesread);
+                         f_read(&USERFile, bin_buff, DLSize, &bytesread);
                          if(bytesread<DLSize){
                              readflag = 0;
                          }
@@ -68,7 +70,6 @@ uint8_t FLASH_SWD(char *File){
                         {
                              uint32_t progess = (((double)addr/f_size(&USERFile))*100);
                              RT_LOGI(TAG,"%d%%",progess);
-
                         }else return 0;
                         addr += DLSize;
                     }
@@ -89,9 +90,9 @@ uint8_t FLASH_SWD(char *File){
 
 int FlashalgoApp_Init(void)
 {
+    RT_LOGI(TAG,"Flashalgo Init");
     flashalgo_test();
     FLASH_SWD(BINNAME);
-    RT_LOGI(TAG,"Flashalgo Init");
     return 0;
 }
 INIT_APP_EXPORT(FlashalgoApp_Init);

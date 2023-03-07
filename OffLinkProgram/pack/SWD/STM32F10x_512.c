@@ -1,8 +1,8 @@
 /* Flash OS Routines (Automagically Generated)
  * Copyright (c) 2009-2015 ARM Limited
  */
-#include "flash_blob.h"
-
+#include "flashalgo.h"
+#if 0
 static const uint32_t flash_code[] = {
     0xE00ABE00, 0x062D780D, 0x24084068, 0xD3000040, 0x1E644058, 0x1C49D1FA, 0x2A001E52, 0x4770D1F2,
     0x4603B510, 0x4C442000, 0x48446020, 0x48446060, 0x46206060, 0xF01069C0, 0xD1080F04, 0x5055F245,
@@ -17,7 +17,7 @@ static const uint32_t flash_code[] = {
     0xCDEF89AB, 0x40003000, 0x00000000
 };
 
-const program_target_t flash_algo = {
+program_target_t flash_algo = {
     0x20000021,  // Init
     0x20000053,  // UnInit
     0x20000065,  // EraseChip
@@ -36,6 +36,7 @@ const program_target_t flash_algo = {
     0x20000400,  // mem buffer location
     0x20000000,  // location to write prog_blob in target RAM
     sizeof(flash_code),  // prog_blob size
-    flash_code,  // address of prog_blob
+    (uint32_t *)flash_code,  // address of prog_blob
     0x00000400,  // ram_to_flash_bytes_to_be_written
 };
+#endif

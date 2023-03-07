@@ -131,7 +131,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="pack/SWD/FlashHC32L19X_256K.c|pack/flashalgo|pack/SWD/FlashHC32L07X_128K.c|pack/Fatfs/documents|Startup/startup_ch32v20x_D6.S|Startup/startup_ch32v20x_D8.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="pack/SWD/FlashHC32L19X_256K.c|pack/SWD/FlashHC32L07X_128K.c|pack/Fatfs/documents|Startup/startup_ch32v20x_D6.S|Startup/startup_ch32v20x_D8.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
