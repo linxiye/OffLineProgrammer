@@ -57,7 +57,7 @@ DRESULT disk_read (
 {
 
     for(int i = 0;i<count;i++){
-        _25qxx_Flash_Read_Data(sector * SPI_FLASH_SectorSize,(uint8_t *)(buff + i*SPI_FLASH_SectorSize), SPI_FLASH_SectorSize);
+        _25qxx_Flash_Read_Data((sector + i) * SPI_FLASH_SectorSize,(uint8_t *)(buff + i*SPI_FLASH_SectorSize), SPI_FLASH_SectorSize);
     }
 
 	 return RES_OK;
@@ -80,7 +80,7 @@ DRESULT disk_write (
 {
 
     for(int i = 0;i<count;i++){
-        _25qxx_Flash_Write_Data(sector * SPI_FLASH_SectorSize, (uint8_t *)(buff + i*SPI_FLASH_SectorSize),SPI_FLASH_SectorSize);
+        _25qxx_Flash_Write_Data((sector + i) * SPI_FLASH_SectorSize, (uint8_t *)(buff + i*SPI_FLASH_SectorSize),SPI_FLASH_SectorSize);
     }
 	 return RES_OK;
 }
